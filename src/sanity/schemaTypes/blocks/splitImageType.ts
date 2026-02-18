@@ -1,3 +1,4 @@
+import { BlockContentIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
 export const splitImageType = defineType({
@@ -23,6 +24,7 @@ export const splitImageType = defineType({
       type: "image",
     }),
   ],
+  icon: BlockContentIcon,
   preview: {
     select: {
       title: "title",
@@ -30,9 +32,9 @@ export const splitImageType = defineType({
     },
     prepare({ title, media }) {
       return {
-        title,
-        subtitle: "Text and Image",
-        media,
+        title: title,
+        subtitle: "Split Image",
+        media: media ?? BlockContentIcon,
       };
     },
   },
