@@ -52,6 +52,9 @@ export const POST_QUERY =
   },
   "seo": {
     "title": coalesce(seo.title, title, ""),
+    "description": coalesce(seo.description,  ""),
+    "image": seo.image,
+    "noIndex": seo.noIndex == true
   },
 }`);
 
@@ -60,6 +63,9 @@ export const PAGE_QUERY =
   ...,
   "seo": {
     "title": coalesce(seo.title, title, ""),
+    "description": coalesce(seo.description,  ""),
+    "image": seo.image,
+    "noIndex": seo.noIndex == true
   },
   content[]{
     ...,
