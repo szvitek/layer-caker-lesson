@@ -49,12 +49,18 @@ export const POST_QUERY =
   relatedPosts[]{
     _key, // required for drag and drop
     ...@->{_id, title, slug} // get fields from the referenced post
-  }
+  },
+  "seo": {
+    "title": coalesce(seo.title, title, ""),
+  },
 }`);
 
 export const PAGE_QUERY =
   defineQuery(`*[_type == "page" && slug.current == $slug][0]{
   ...,
+  "seo": {
+    "title": coalesce(seo.title, title, ""),
+  },
   content[]{
     ...,
     _type == "faqs" => {
