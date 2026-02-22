@@ -32,6 +32,8 @@ export const structure: StructureResolver = (S) =>
             "page",
             "faq",
             "siteSettings",
+            "redirect",
           ].includes(item.getId()!),
       ),
+      S.documentTypeListItem("redirect").title("Redirects"),
     ]);

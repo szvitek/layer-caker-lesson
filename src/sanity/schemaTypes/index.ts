@@ -13,6 +13,7 @@ import { heroType } from "./blocks/heroType";
 import { splitImageType } from "./blocks/splitImageType";
 import { siteSettingsType } from "./siteSettingsType";
 import { seoType } from "./seoType";
+import { redirectType } from "./redirectType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -29,5 +30,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     splitImageType,
     siteSettingsType,
     seoType,
+    redirectType,
   ],
 };
