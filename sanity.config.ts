@@ -7,6 +7,7 @@
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
+import { assist } from "@sanity/assist";
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from "./src/sanity/env";
@@ -34,6 +35,7 @@ export default defineConfig({
         },
       },
     }),
+    assist(),
   ],
   document: {
     newDocumentOptions: (prev) =>
