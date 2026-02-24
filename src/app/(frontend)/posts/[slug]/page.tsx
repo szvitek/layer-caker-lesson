@@ -2,16 +2,53 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { POST_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { Post } from "@/components/post";
+import { Metadata } from "next";
+import { urlFor } from "@/sanity/lib/image";
 
-export default async function Page({
-  params,
-}: {
+type RouteProps = {
   params: Promise<{ slug: string }>;
-}) {
-  const { data: post } = await sanityFetch({
+};
+
+const getPost = async (params: RouteProps["params"]) =>
+  sanityFetch({
     query: POST_QUERY,
     params: await params,
   });
+
+export async function generateMetadata({
+  params,
+}: RouteProps): Promise<Metadata> {
+  const { data: post } = await getPost(params);
+
+  if (!post) {
+    return {};
+  }
+
+  const metadata: Metadata = {
+    metadataBase: new URL("https://acme.com"),
+    title: post.seo.title,
+    description: post.seo.description,
+  };
+
+  metadata.openGraph = {
+    images: {
+      url: post.seo.image
+        ? urlFor(post.seo.image).width(1200).height(630).url()
+        : `/api/og?id=${post._id}`,
+      width: 1200,
+      height: 630,
+    },
+  };
+
+  if (post.seo.noIndex) {
+    metadata.robots = "noindex";
+  }
+
+  return metadata;
+}
+
+export default async function Page({ params }: RouteProps) {
+  const { data: post } = await getPost(params);
 
   if (!post) {
     notFound();
